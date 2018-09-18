@@ -2,23 +2,23 @@ const enhance = require('./enhance').enhance;
 
 describe('enhance function', () => {
   describe('initialization', () => {
-    test('item should start at 0', () => {
+    it('item should start at 0', () => {
       expect(enhance.item).toBe(0);
     });
-    test('fail should start at 0', () => {
+    it('fail should start at 0', () => {
       expect(enhance.fail).toBe(0);
     });
-    test('durability should start at 100', () => {
+    it('durability should start at 100', () => {
       expect(enhance.durability).toBe(100);
     });
   });
   describe('enhancement', () => {
-    test('enhancement should increase item by 1', () => {
+    it('enhancement should increase item by 1', () => {
       expect(enhance.enhance(100).item).toBe(1);
       expect(enhance.enhance(100).item).toBe(2);
       expect(enhance.enhance(100).item).toBe(3);
     });
-    test('enhancement should increase item by 1, represented by roman numerals >15', () => {
+    it('enhancement should increase item by 1, represented by roman numerals >15', () => {
       enhance.item = 15;
       expect(enhance.enhance(100).item).toBe('I');
       expect(enhance.enhance(100).item).toBe('II');
@@ -26,14 +26,14 @@ describe('enhance function', () => {
       expect(enhance.enhance(100).item).toBe('IV');
       expect(enhance.enhance(100).item).toBe('V');
     });
-    test('enhancement should reset fail count', () => {
+    it('enhancement should reset fail count', () => {
       enhance.fail = 100;
       enhance.item = 14;
       expect(enhance.enhance(100).fail).toBe(0);
     });
   });
   describe('fail', () => {
-    test('failing an enhancement should increase fail count (1 if item<=15)', () => {
+    it('failing an enhancement should increase fail count (1 if item<=15)', () => {
       enhance.item = 10;
       expect(enhance.enhance(0).item).toBe(9);
       expect(enhance.enhance(0).fail).toBe(2);
@@ -42,13 +42,13 @@ describe('enhance function', () => {
       expect(enhance.enhance(0).item).toBe(5);
       expect(enhance.enhance(0).fail).toBe(6);
     });
-    test('failing an enhancement should increase fail count (varies if item>15)', () => {
+    it('failing an enhancement should increase fail count (varies if item>15)', () => {
       enhance.item = 'I';
       enhance.fail = 0;
       expect(enhance.enhance(0).item).toBe(15);
       expect(enhance.enhance(0).fail).toBe(2);
     });
-    test('failing an enhancement should decrease durability by 5', () => {
+    it('failing an enhancement should decrease durability by 5', () => {
       enhance.durability = 100;
       enhance.item = 15;
       expect(enhance.enhance(0).durability).toBe(95);
@@ -57,7 +57,7 @@ describe('enhance function', () => {
     });
   });
   describe('repair', () => {
-    test('durability should increase by 10', () => {
+    it('durability should increase by 10', () => {
       enhance.durability = 71;
       expect(enhance.repair().durability).toBe(81);
       expect(enhance.repair().durability).toBe(91);
