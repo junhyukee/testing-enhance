@@ -35,11 +35,12 @@ class GameItem {
     }
   }
   enhance(percentage) {
-    if (percentage === 100) {
+    let compare = Math.random() * 100;
+    if (compare < percentage) {
       this.increase();
       this.fail = 0;
       return this;
-    } else if (percentage === 0) {
+    } else {
       this.decrease();
       this.durability -= 5;
       this.fail++;
