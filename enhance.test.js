@@ -1,16 +1,15 @@
-const enhance = require('./enhance');
+const enhance = require('./enhance').enhance;
 
 describe('enhance function', () => {
   describe('initialization', () => {
-    const start = enhance.start();
     test('item should start at 0', () => {
-      expect(start.item).toBe(0);
+      expect(enhance.item).toBe(0);
     });
     test('fail should start at 0', () => {
-      expect(start.fail).toBe(0);
+      expect(enhance.fail).toBe(0);
     });
     test('durability should start at 100', () => {
-      expect(start.durability).toBe(100);
+      expect(enhance.durability).toBe(100);
     });
   });
   describe('enhancement', () => {
@@ -37,14 +36,14 @@ describe('enhance function', () => {
     test('failing an enhancement should increase fail count (1 if item<=15)', () => {
       enhance.item = 10;
       expect(enhance.enhance(0).item).toBe(9);
-      expect(enhance.enhance(0).fail).toBe(1);
-      expect(enhance.enhance(0).item).toBe(8);
       expect(enhance.enhance(0).fail).toBe(2);
       expect(enhance.enhance(0).item).toBe(7);
-      expect(enhance.enhance(0).fail).toBe(3);
+      expect(enhance.enhance(0).fail).toBe(4);
+      expect(enhance.enhance(0).item).toBe(5);
+      expect(enhance.enhance(0).fail).toBe(6);
     });
     test('failing an enhancement should increase fail count (varies if item>15)', () => {
-      enhance.item = 16;
+      enhance.item = 'I';
       enhance.fail = 0;
       expect(enhance.enhance(0).item).toBe(15);
       expect(enhance.enhance(0).fail).toBe(2);
@@ -59,8 +58,10 @@ describe('enhance function', () => {
   });
   describe('repair', () => {
     test('durability should increase by 10', () => {
-      const repair = enhance.repair();
-      expect(repair).toBe(100);
+      enhance.durability = 71;
+      expect(enhance.repair().durability).toBe(81);
+      expect(enhance.repair().durability).toBe(91);
+      expect(enhance.repair().durability).toBe(100);
     });
   });
 });
